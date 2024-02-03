@@ -1,0 +1,46 @@
+.container-haeder {
+    background-color: #2196F3;
+    height: 64px;
+    width: 100%;
+    color: #FFFFFF;
+
+    display: flex;
+    align-items: center;
+}
+
+.first-el {
+    margin-left: 62px;
+    width: 120px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-cats {
+    height: 64px;
+    width: 173px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.my-cats:hover {
+    background-color: #1E88E5;
+}
+.all-cats:hover {
+    background-color: #1E88E5;
+}
+
+.flag {
+    background-color: #1E88E5;
+}
+
+
+/* custom link */
+a {
+    text-decoration:none;
+    color: #FFFFFF;
+}
+.active {
+    color: #FFFFFF;
+}

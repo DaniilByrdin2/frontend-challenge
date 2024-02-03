@@ -1,0 +1,23 @@
+.container-cart {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width: 250px;
+    height: 250px;
+    border: 1px solid red;
+}
+
+
+.like-el {
+    width: 40px;
+    height: 40px;
+    border: 1px solid red;
+}
+
+.container-like {
+    width: 100%;
+
+    display: flex;
+    justify-content: end;
+}
