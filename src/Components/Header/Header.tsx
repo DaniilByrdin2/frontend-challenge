@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import "./Header.css"
 
 
-export const Header = () => {
-    const [ flagActiveBtn, setActiveBtn ] = useState(true)
+export const Header = ( {getCats, Loading}: any ) => {
+    const [ flagActiveBtn, setActiveBtn ] = useState<boolean>(true)
+
+    useEffect( () => {
+        if (!Loading) {
+          getCats()
+        }
+    }, [] )
+    
 
     return (
       <div className="container-haeder">

@@ -8,7 +8,7 @@ export interface StateType {
   FlagError: boolean,
 }
 
-const initialState: StateType = {
+export const initialState: StateType = {
   Cats: [],
   MyCats: [],
   Loading: false,
@@ -23,14 +23,11 @@ export const CatsSlice = createSlice({
   reducers: {
 
     FetchingFlag: (state) => {
-        state.Loading = true
+        state.Loading = !state.Loading
     },
 
     LoadingCats: (state, action: PayloadAction<any>) => {
-        
-        state.Cats = action.payload
-
-
+        state.Cats = action.payload 
     },
 
     AddCat: (state, action: PayloadAction<any>) => {
@@ -51,7 +48,10 @@ export const CatsSlice = createSlice({
   },
 });
 
-export const { LoadingCats, DeleteCat, AddCat, FetchingFlag, FlagError  } = CatsSlice.actions;
 
-export default CatsSlice.reducer;
+const { actions, reducer } = CatsSlice
+
+export const { LoadingCats, DeleteCat, AddCat, FetchingFlag, FlagError  } = actions;
+
+export default reducer;
 
