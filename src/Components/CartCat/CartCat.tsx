@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 
 import like  from "../../Img/like.png"
 import activeLike from "../../Img/active-like.png"
@@ -6,9 +6,18 @@ import activeLike from "../../Img/active-like.png"
 import './CartCat.css'
 
 
-export const CartCat = ( { imgUrl, AddCat, id, flagLike , DeleteCat }:any ) => {
-    const [ flag, setFlag ] = useState(false)
 
+interface CartCatInerface {
+  "imgUrl": string,
+  "id": string,
+  "flagLike": boolean | undefined,
+  "DeleteCat": (id: string) => void
+  "AddCat"?: (id: string) => void,
+}
+
+export const CartCat:FC<CartCatInerface> = ( { imgUrl, id, flagLike, AddCat, DeleteCat } ) => {
+    const [ flag, setFlag ] = useState<boolean>(false)
+    
     return (
       <div className="container-cart" 
       onMouseOut={ () => setFlag( false )} 
@@ -21,10 +30,17 @@ export const CartCat = ( { imgUrl, AddCat, id, flagLike , DeleteCat }:any ) => {
 }
 
 
-const LikeComponent = ( {AddCat, id, flagLike, DeleteCat}: any ) => {
+interface LikeComponentInterface {
+  "DeleteCat": ( id:string ) => void, 
+  "AddCat": ( ( id:string ) => void ) | undefined,
+  "id": string,
+  "flagLike": boolean | undefined
+}
+
+const LikeComponent:FC<LikeComponentInterface> = ( { id, flagLike, AddCat, DeleteCat } ) => {
 
   const changeLike = () => { 
-    if (!flagLike) {
+    if (!flagLike && AddCat ) {
       AddCat( id )
     } else ( 
       DeleteCat( id )

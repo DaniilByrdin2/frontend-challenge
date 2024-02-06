@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, {FC, useEffect, useState } from "react";
 
 import { NavLink } from "react-router-dom";
 
 import "./Header.css"
 
 
+interface HeaderInterface {
+  "numberPage": number,
+  "getCats": () => void
+}
 
-
-export const Header = ( { numberPage, getCats}: any ) => {
+export const Header:FC<HeaderInterface> = ( { numberPage, getCats} ) => {
   const [flagActiveBtn, setActiveBtn] = useState<boolean>(true);
 
   useEffect(() => {

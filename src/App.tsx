@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 import { Main } from "./Components/Main/Main";
 import { Header } from "./Components/Header/Header";
@@ -11,16 +11,33 @@ import { fetchCats } from "./Redux/ActionCreators"
 import { AddCat, DeleteCat } from "./Redux/Reducers"
 
 import {StateType} from "./Redux/Reducers"
+import { AppDispatch } from "./Redux/Store"
 
 import "./App.css"
 
 
-const App = ({ getCats, Loading, Cats, MyCats, AddCat, DeleteCat }: any) => {
+export type CartCatType = {
+  "url": string,
+  "id": string,
+  "breeds": any[],
+  "like": boolean
+}
 
-  const [numberPage, setNumberPage] = useState(0);
+export interface AppInterface {
+  "getCats": () => void,
+  "AddCat": ( id: string ) => void,
+  "DeleteCat": ( id: string ) => void,
+  "Loading": boolean,
+  "Cats": Array<CartCatType>,
+  "MyCats": Array<CartCatType>
+}
+
+const App:FC<AppInterface> = ({ Loading, Cats, MyCats, getCats, AddCat, DeleteCat }) => {
+
+  const [numberPage, setNumberPage] = useState<number>(0);
   
-  useEffect(() => {
-    const handleScroll = (): any => {
+  useEffect( () => {
+    const handleScroll = (): void => {
 
       const heightScroll = Math.floor(
         window.scrollY + document.documentElement.clientHeight
@@ -38,8 +55,7 @@ const App = ({ getCats, Loading, Cats, MyCats, AddCat, DeleteCat }: any) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }  );
-  
+  });
 
   return (
     <div>
@@ -61,7 +77,7 @@ const mapStateToProps = (state: StateType) => {
   }
 }
 
-const mapDispatchToProps = ( dispatch: any ) => {
+const mapDispatchToProps = ( dispatch: AppDispatch ) => {
   return {
     getCats: () => dispatch( fetchCats() ),
     AddCat: ( id: string ) => dispatch( AddCat( id ) ),
