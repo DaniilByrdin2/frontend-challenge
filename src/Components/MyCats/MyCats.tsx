@@ -1,32 +1,34 @@
 import React, {FC} from "react";
 
 import { CartCat } from "../CartCat/CartCat"
-
+import { useDispatch, useSelector } from "react-redux";
+import { FavoriteCat } from "../../Redux/Reducers"
 import { mapElementType } from "../Main/Main"
-import { CartCatType } from "../../App"
 
-interface myLikedCatsInerface {
+import { getId } from "../Helpers"
 
-  "DeleteCat": (id: string) => void,
-  "MyCats": CartCatType[]
 
-}
+export const MyLikedCats:FC = () => {
+    const { MyCats }: any = useSelector( state => state ) 
+    const AppDispatch = useDispatch()
 
-export const MyLikedCats:FC<myLikedCatsInerface> = ( { MyCats, DeleteCat } ) => {
+
+    const handleClick = (event: any): void => {
+      const target = event.target
+      console.log(target);
+      
+      const id = getId(target);
+      console.log(id);
+      id && AppDispatch( FavoriteCat(id) );
+    }
+
     return (
-        <div>
-            <ul>
-            { MyCats.map(( { id, url, like }: mapElementType  ) => {
-            
-            const ID = id + (Math.random() * 10)
-
+        <div className="container-cats" onClick={ handleClick }>
+            { MyCats?.map(( item: mapElementType  ) => {
             return (
-              <li key={ ID } >
-                <CartCat flagLike = {like} id = {id} DeleteCat = {DeleteCat} imgUrl={url} />
-              </li>
+                <CartCat key={ item.id } item = { item } />
             );
-          })}
-            </ul>
+          })} 
         </div>
     )
 }

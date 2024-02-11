@@ -1,4 +1,4 @@
-ul {
+.container-cats {
     list-style-type: none;
 
     display: flex;
@@ -11,14 +11,6 @@ ul {
     padding: 0px;
 
 }
-
-li {
-    width: 225px;
-    height: 225px;
-
-    margin: 24px;
-}
-
 
 .footer {
     display: flex;

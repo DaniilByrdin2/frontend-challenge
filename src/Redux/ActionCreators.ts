@@ -1,12 +1,13 @@
 import axios from "axios";
 
-import { LoadingCats, FetchingFlag } from './Reducers' 
+import { LoadingCats, FetchingFlag, FetchingError } from './Reducers' 
+import { AppDispatch } from "../Redux/Store"
 
 import { data } from "../Data/data"
 
 
 
-export const fetchCats = (limit: number = 25) => async (dispatch: any) => {
+export const fetchCats = (limit: number = 25) => async (dispatch: AppDispatch) => {
 
   try {
 
@@ -31,6 +32,7 @@ export const fetchCats = (limit: number = 25) => async (dispatch: any) => {
     } ); 
 
   } catch (error) {
+    dispatch( FetchingError() )
     console.log(error);
   }
 

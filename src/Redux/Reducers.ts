@@ -6,12 +6,14 @@ export interface StateType {
   Cats: any[];
   MyCats: any[];
   Loading: boolean,
+  Error: boolean
 }
 
 export const initialState: StateType | never[] = {
   Cats: [],
   MyCats: [],
   Loading: false,
+  Error: false
 };
 
 
@@ -21,6 +23,10 @@ export const CatsSlice = createSlice({
   
   reducers: {
 
+    FetchingError: (state) => {
+      state.Error = true
+    },
+
     FetchingFlag: (state) => {
         state.Loading = !state.Loading
     },
@@ -29,25 +35,27 @@ export const CatsSlice = createSlice({
         state.Cats.push(...payload)   
     },
 
-    AddCat: (state, { payload }: PayloadAction<string>) => {
+    FavoriteCat: ( state, { payload }: PayloadAction<string> ) => {
+
       const selectCat = state.Cats.find( e  => e.id === payload  )
 
-      selectCat.like = true
-      state.MyCats.push(selectCat);
-    },
+      if ( selectCat && selectCat.like ) {
+        selectCat.like = false
+        state.MyCats = state.MyCats.filter( e => e.id !== selectCat.id )
 
-    DeleteCat: (state, { payload }: PayloadAction<string>) => {
-      const selectCat = state.Cats.find( e => e.id === payload ) 
-      selectCat.like = false
-      state.MyCats = state.MyCats.filter( e => e.id !== selectCat.id )
-    },
+      } else {
+        selectCat.like = true
+        state.MyCats.push(selectCat);      
+      }
+
+    }
   },
 });
 
 
 const { actions, reducer } = CatsSlice
 
-export const { LoadingCats, DeleteCat, AddCat, FetchingFlag } = actions;
+export const { LoadingCats, FavoriteCat, FetchingFlag, FetchingError } = actions;
 
 export default reducer;
 
